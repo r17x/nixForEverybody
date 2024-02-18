@@ -2,14 +2,14 @@
   description = "selamat datang di nix";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    u.url = "github:numtide/flake-utils";
   };
-  outputs = inputs:
+  outputs = inputs: inputs.u.lib.eachDefaultSystem (system:
     let
-      pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
+      pkgs = inputs.nixpkgs.legacyPackages.${system};
     in
     {
-      devShells.aarch64-darwin = {
-
+      devShells = {
         default = pkgs.mkShell {
           buildInputs = [ ];
         };
@@ -21,7 +21,7 @@
         nodejs = pkgs.mkShell {
           buildInputs = [ pkgs.nodejs pkgs.nodePackages.yarn pkgs.nodePackages.pnpm ];
         };
-
       };
-    };
+    }
+  );
 }

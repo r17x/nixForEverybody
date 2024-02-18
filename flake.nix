@@ -3,9 +3,25 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
-  outputs = inputs: {
-    devShells.aarch64-darwin.default = inputs.nixpkgs.legacyPackages.aarch64-darwin.mkShell {
-      buildInputs = [ inputs.nixpkgs.legacyPackages.aarch64-darwin.python3 ];
+  outputs = inputs:
+    let
+      pkgs = inputs.nixpkgs.legacyPackages.aarch64-darwin;
+    in
+    {
+      devShells.aarch64-darwin = {
+
+        default = pkgs.mkShell {
+          buildInputs = [ ];
+        };
+        # nix develop .#python
+        python = pkgs.mkShell {
+          buildInputs = [ pkgs.python3 ];
+        };
+        # nix develop .#nodejs
+        nodejs = pkgs.mkShell {
+          buildInputs = [ pkgs.nodejs pkgs.nodePackages.yarn pkgs.nodePackages.pnpm ];
+        };
+
+      };
     };
-  };
 }

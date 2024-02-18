@@ -1,8 +1,12 @@
 ## This Repository based on live streaming  
 
-
 ### Command
 
+#### Show information about this flake
+
+```bash
+nix flake show github:r17x/nixForEverybody
+```
 
 #### Using nix shell remotely
 

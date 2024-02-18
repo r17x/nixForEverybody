@@ -21,6 +21,10 @@
         nodejs = pkgs.mkShell {
           buildInputs = [ pkgs.nodejs pkgs.nodePackages.yarn pkgs.nodePackages.pnpm ];
         };
+
+        go = pkgs.mkShell {
+          buildInputs = [ pkgs.go ];
+        };
       };
     }
   );
